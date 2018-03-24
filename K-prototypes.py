@@ -1,6 +1,9 @@
-# coding: utf-8
-
-# In[36]:
+import pandas as pd
+import numpy as np
+from kmodes import kmodes
+from kmodes import kprototypes
+from sklearn.preprocessing import normalize
+from sklearn.decomposition import PCA
 
 """
 由于本数据集中既有连续型变量，又有类别变量，因此考虑使用K-prototype算法来进行聚类。K-prototype的本质就是用K-means处理连续型变量，
@@ -31,17 +34,7 @@ C = sum(sum(u(il)*D(x(i),centroid(l))), 其中u = 1 when x(i)在centroid（l）�
 目前函数最主要的不足之处是在处理大量数据时运算速度较慢。其原因是K-prototype的时间复杂度为 O(i*k*n*d),
 i = 迭代次数, k = 中心数, n = 数据量， d = 特征维数. 目前我想到可以改进的地方是对连续变量进行PCA降维，减少d特征维数。
 
-2017.5.17
-詹焯扬
-
 """
-
-import pandas as pd
-import numpy as np
-from kmodes import kmodes
-from kmodes import kprototypes
-from sklearn.preprocessing import normalize
-from sklearn.decomposition import PCA
 
 def kprototype(filename, num_clusters):
     #输入数据
